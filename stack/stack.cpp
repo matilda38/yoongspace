@@ -2,9 +2,11 @@
 #include<stdlib.h>
 #define STACK_SIZE 100
 
+
+//전역변수 선언, 어디서든지 접근 가능(소스파일내).
 typedef int element;
 element stack[STACK_SIZE];
-int top=-1;
+int top=-1; //공백.
 
 //스택의 삽입 1. 꽉찼다 2. 그 외
 void push(element item){
