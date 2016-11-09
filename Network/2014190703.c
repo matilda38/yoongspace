@@ -9,19 +9,21 @@
 
 #define SERVER_PORT 47500
 
+
+//FLAGS
 #define FLAG_HELLO  ((unsigned char)0x01 << 7)
 #define FLAG_INSTRUCTION    ((unsigned char)0x01 << 6)
 #define FLAG_RESPONSE       ((unsigned char)0x01 << 5)
 #define FLAG_TERMINATE      ((unsigned char)0x01 << 4)
 
+//OPERATIONS
 #define OP_ECHO_REQUEST     ((unsigned char)0x00)
 #define OP_INCREMENT        ((unsigned char)0x01)
 #define OP_DECREMENT        ((unsigned char)0x02)
 
-//발신용 변수
+//발신용 변수. static 배열이므로 자동 초기화된다
 char buf[1024];//128 byte
 char data_str[1024];
-
 
 //수신 용 변수.
 //받는 버퍼, SEQUENCE_NUM, DATA_LENGTH, OP.
@@ -48,6 +50,9 @@ int main()
 {
 	struct hostent *hp;
 	struct sockaddr_in sin;
+
+	//header_p와 data_int, data_long 총 3개의 포인터를 선언한다. malloc 을 통해 주소를 할당해주어야 뒤에서 에러가 나지 않는다.
+	//header_p-> flag 등의 참조를 수행할때 header_p만 선언하면 쓰레기 값이 저장된 포인터를 참조하기때문에 segmentation error가 난다
 	struct header *header_p = (struct header*)malloc(sizeof(struct header));
 	int* data_int = (int*)malloc(sizeof(int));
 	long long* data_long = (long long*)malloc(sizeof(long long));
