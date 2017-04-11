@@ -13,9 +13,9 @@ int main(){
   }
 
   n--;
-  cout << "<"
+  cout << "<";
   while(n--){
-    for(i=0;i<m;i++){
+    for(i=0;i<m-1;i++){
       q.push(q.front());
       q.pop();
     }
